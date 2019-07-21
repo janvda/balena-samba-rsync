@@ -11,7 +11,7 @@ services:
     image: dastrasmue/rpi-samba 
     command: -s "Public (readonly):/mount:ro:"
     volumes:
-       - 'rsync-data:/mount'
+       - 'rsync_data:/mount'
     ports:
       - "139:139"
       - "445:445"
