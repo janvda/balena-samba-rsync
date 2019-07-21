@@ -4,6 +4,7 @@ volumes:
 services:
   rsync:
     build: ./rsync
+    privileged: true
     volumes:
       - 'rsync_data:/mnt/rsync_data'
   
