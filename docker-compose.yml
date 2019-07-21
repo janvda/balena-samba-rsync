@@ -7,4 +7,12 @@ services:
     privileged: true
     volumes:
       - 'rsync_data:/mnt/rsync_data'
+  samba:
+    image: dastrasmue/rpi-samba 
+    command: -s "Public (readonly):/mount:ro:"
+    volumes:
+       - 'rsync-data:/mount'
+    ports:
+      - "139:139"
+      - "445:445"
   
