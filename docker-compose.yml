@@ -1,17 +1,17 @@
 version: '2'
 volumes:
-  rsync_data:
+  volume_data:
 services:
   rsync:
     build: ./rsync
     privileged: true
     volumes:
-      - 'rsync_data:/mnt/rsync_data'
+      - 'volume_data:/data'
   samba:
     image: dastrasmue/rpi-samba 
-    command: -s "Public (readonly):/mount:ro:"
+    command: -s "Public (readonly):/data:ro:"
     volumes:
-       - 'rsync_data:/mount'
+       - 'volume_data:/data'
     ports:
       - "139:139"
       - "445:445"
