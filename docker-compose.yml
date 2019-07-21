@@ -7,12 +7,8 @@ services:
     privileged: true
     volumes:
       - 'volume_data:/data'
-  samba:
-    image: dastrasmue/rpi-samba 
-    command: -s "Public (readonly):/data:ro:"
-    volumes:
-       - 'volume_data:/data'
     ports:
       - "139:139"
       - "445:445"
+
   
