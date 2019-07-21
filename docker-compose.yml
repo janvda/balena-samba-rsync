@@ -1,0 +1,9 @@
+version: '2'
+volumes:
+  rsync_data:
+services:
+  rsync:
+    build: ./rsync
+    volumes:
+      - 'rsync_data:/mnt/rsync_data'
+  
