@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ "$SMB1_SERVER_AND_SHARE_NAME" != '' ]; then
-   if [ "$SMB1_MOUNT_FOLDER" = '' ]; then
-      export SMB1_MOUNT_FOLDER=smb1
+if [ "$smb1_server_and_share_name" != '' ]; then
+   if [ "$smb1_mount_folder" = '' ]; then
+      export smb1_mount_folder=smb1
    fi
-   export SMB1_MOUNT_POINT=/data/from/$SMB1_MOUNT_FOLDER
+   export smb1_mount_point=/data/from/$smb1_mount_folder
 
    echo "Mounting samba share 1"
-   mkdir -p $SMB1_MOUNT_POINT
-   mount -t cifs $SMB1_MOUNT_OPTIONS $SMB1_SERVER_AND_SHARE_NAME $SMB1_MOUNT_POINT
+   mkdir -p $smb1_mount_point
+   mount -t cifs $smb1_mount_options $smb1_server_and_share_name $smb1_mount_point
 fi
 
 sleep 3600
