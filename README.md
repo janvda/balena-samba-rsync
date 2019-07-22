@@ -33,4 +33,4 @@ E.g. `e2label /dev/sda1 hd01_ext4_700G`
 1. Mount the partion using the command: `mount /dev/sda1 /data/hd`
 2. The following command can be used to synchronise a folder using ssh: `rsync -avHe ssh root@192.168.1.150:/nfs/fotos_en_films/201[0-4] /data/hd/fotos_en_films`
 3. The following command can be used to mount samba share: `mount -t cifs //192.168.1.150/jan /data/from -o user=jan`
-`mount -t cifs -o user=jan,password=b0rsbeek //192.168.1.150/jan /data/from1`
+`mount -t cifs -o user=jan,password=xxxx //192.168.1.150/jan /data/from1`
