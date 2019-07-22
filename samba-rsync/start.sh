@@ -38,7 +38,7 @@ fi
 
 # Mounting external drive if appropriate device service variables are set.
 if [ "$ext_dev_partition" != '' ]; then
-   echo "Mounting device partition: $ext_dev_partition at /data/to"
+   echo "Mounting external device partition: $ext_dev_partition at /data/to"
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
 fi
