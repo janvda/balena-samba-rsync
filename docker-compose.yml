@@ -2,8 +2,8 @@ version: '2'
 volumes:
   volume_data:
 services:
-  rsync:
-    build: ./rsync
+  samba-rsync:
+    build: ./samba-rsync
     privileged: true
     volumes:
       - 'volume_data:/data'
