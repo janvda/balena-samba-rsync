@@ -12,9 +12,9 @@ if [ "$smb1_server_and_share_name" != '' ]; then
       export smb1_full_mount_options="-o $smb1_mount_options"
    fi
 
-   echo "Mounting samba share 1"
+   echo "Mounting samba share 1: $smb1_server_and_share_name at $smb1_mount_point"
    mkdir -p $smb1_mount_point
-   echo "mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point"
+   #echo "mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point"
    mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point
 fi
 
@@ -30,9 +30,9 @@ if [ "$smb2_server_and_share_name" != '' ]; then
       export smb2_full_mount_options="-o $smb2_mount_options"
    fi
 
-   echo "Mounting samba share 2"
+   echo "Mounting samba share 2: $smb2_server_and_share_name at $smb2_mount_point""
    mkdir -p $smb2_mount_point
-   echo "mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point"
+   #echo "mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point"
    mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
 fi
 
