@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Mounting samba share 1 if device service variables are set.
+# Mounting samba share 1 if appropriate device service variables are set.
 if [ "$smb1_server_and_share_name" != '' ]; then
    if [ "$smb1_mount_folder" = '' ]; then
       export smb1_mount_folder=smb1
@@ -18,7 +18,7 @@ if [ "$smb1_server_and_share_name" != '' ]; then
    mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point
 fi
 
-# Mounting samba share 2 if device service variables are set.
+# Mounting samba share 2 if appropriate device service variables are set.
 if [ "$smb2_server_and_share_name" != '' ]; then
    if [ "$smb2_mount_folder" = '' ]; then
       export smb2_mount_folder=smb2
