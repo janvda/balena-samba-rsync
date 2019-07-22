@@ -36,6 +36,13 @@ if [ "$smb2_server_and_share_name" != '' ]; then
    mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
 fi
 
+# Mounting external drive if appropriate device service variables are set.
+if [ "$device_partition" != '' ]; then
+   echo "Mounting device partition: $device_partition at /data/to"
+   mkdir -p /data/to
+   mount $device_partition /data/to
+fi
+
 # starting samba daemon, this will create samba share //<IP address raspberry pi>/data
 service smbd start
 
