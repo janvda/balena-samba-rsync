@@ -36,5 +36,8 @@ if [ "$smb2_server_and_share_name" != '' ]; then
    mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
 fi
 
+# starting samba daemon, this will create samba share //<IP address raspberry pi>/data
+service smbd start
+
 sleep 3600
 exit 0
