@@ -45,6 +45,7 @@ if [ "$ext_dev_partition" != '' ]; then
    echo "Mounting external device partition: $ext_dev_partition at /data/to"
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
+   df -h
 
    if [ "$rsync_smb1_enable" = 1 ]; then
       rsync_smb1_from=$smb1_mount_point
@@ -64,6 +65,6 @@ if [ "$ext_dev_partition" != '' ]; then
    fi
 fi
 
-echo "\nSleeping for 1 hour..."
+echo -e "\nSleeping for 1 hour..."
 sleep 3600
 exit 0
