@@ -59,6 +59,7 @@ if [ "$ext_dev_partition" != '' ]; then
       if [ "$rsync_smb1_from_folder" != '' ]; then
         rsync_smb1_from="$rsync_smb1_from/$rsync_smb1_from_folder"
       fi
+      rsync_smb1_from_arr=($rsync_smb1_from) # force filename expansion
       if [ "$rsync_smb1_to_folder" != '' ]; then
         rsync_smb1_to="$rsync_smb1_to/$rsync_smb1_to_folder"
         mkdir -p "$rsync_smb1_to"
@@ -68,7 +69,7 @@ if [ "$ext_dev_partition" != '' ]; then
       fi
 
       #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
-      rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
+      rsync_cmd=(rsync $rsync_smb1_opts $rsync_smb1_from_arr "$rsync_smb1_to")
       echo "launching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
