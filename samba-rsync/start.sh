@@ -59,6 +59,7 @@ if [ "$ext_dev_partition" != '' ]; then
       fi
       if [ "$rsync_smb1_to_folder" != '' ]; then
         rsync_smb1_to=$rsync_smb1_to/$rsync_smb1_to_folder
+        mkdir -p $rsync_smb1_to_folder
       fi
       if [ "$rsync_smb1_options" != '' ]; then
          rsync_smb1_opts=$rsync_smb1_options
