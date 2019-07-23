@@ -36,15 +36,32 @@ if [ "$smb2_server_and_share_name" != '' ]; then
    mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
 fi
 
+# starting samba daemon, this will create samba share //<IP address raspberry pi>/data
+service smbd start
+
 # Mounting external drive if appropriate device service variables are set.
+# and running rsync if enabled.
 if [ "$ext_dev_partition" != '' ]; then
    echo "Mounting external device partition: $ext_dev_partition at /data/to"
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
-fi
 
-# starting samba daemon, this will create samba share //<IP address raspberry pi>/data
-service smbd start
+   if [ "$rsync_smb1_enable" = 1 ]; then
+      rsync_smb1_from=$smb1_mount_point
+      rsync_smb1_to=/data/to
+      rsync_smb1_opts="-anv"
+      if [ "$rsync_smb1_folder" != '' ]; then
+        rsync_smb1_from=$rsync_smb1_from/$rsync_smb1_folder
+      fi
+      if [ "$rsync_smb1_to_folder" != '' ]; then
+        rsync_smb1_to=$rsync_smb1_to/$rsync_smb1_to_folder
+      fi
+      if [ "$rsync_smb1_options" != '' ]; then
+         rsync_smb1_opts=$rsync_smb1_options
+      fi
+      echo "rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to"
+   fi
+fi
 
 sleep 3600
 exit 0
