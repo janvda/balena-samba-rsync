@@ -57,7 +57,7 @@ if [ "$ext_dev_partition" != '' ]; then
       rsync_smb1_to=/data/to
       rsync_smb1_opts="-an --stats"  # default options
       if [ "$rsync_smb1_from_folder" != '' ]; then
-        rsync_smb1_from=$(printf '%q' "$rsync_smb1_from/$rsync_smb1_from_folder")
+        rsync_smb1_from="$rsync_smb1_from/$rsync_smb1_from_folder"
       fi
       if [ "$rsync_smb1_to_folder" != '' ]; then
         rsync_smb1_to="$rsync_smb1_to/$rsync_smb1_to_folder"
@@ -66,8 +66,11 @@ if [ "$ext_dev_partition" != '' ]; then
       if [ "$rsync_smb1_options" != '' ]; then
          rsync_smb1_opts=$rsync_smb1_options
       fi
-      echo "launching: rsync $rsync_smb1_opts $rsync_smb1_from \"$rsync_smb1_to\""
-      rsync $rsync_smb1_opts $rsync_smb1_from "$rsync_smb1_to"
+
+      #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
+      rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
+      echo "launching: ${rsync_cmd[@]}"
+      "${rsync_cmd[@]}"
    fi
 
    # processing the rsync options for 2nd samba share (smb2)
