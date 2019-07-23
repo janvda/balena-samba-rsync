@@ -87,8 +87,6 @@ if [ "$ext_dev_partition" != '' ]; then
       echo "launching: rsync $rsync_smb2_opts \"$rsync_smb2_from\" \"$rsync_smb2_to\""
       rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to"
    fi
-
-
 fi
 
 echo -e "\nSleeping for 1 hour..."
