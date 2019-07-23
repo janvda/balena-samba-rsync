@@ -64,6 +64,6 @@ if [ "$ext_dev_partition" != '' ]; then
    fi
 fi
 
-echo "Sleeping for 1 hour"
+echo "\nSleeping for 1 hour..."
 sleep 3600
 exit 0
