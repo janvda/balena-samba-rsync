@@ -53,28 +53,28 @@ if [ "$ext_dev_partition" != '' ]; then
    echo -e "************************************************************\n"
 
    # processing the rsync options for 1st samba share (smb1)
-   if [ "$rsync_smb1_enable" = 1 ]; then
-      rsync_smb1_from=$smb1_mount_point
-      rsync_smb1_to=/data/to
-      rsync_smb1_opts="-an --stats"  # default options
-      if [ "$rsync_smb1_from_folder" != '' ]; then
-        rsync_smb1_from="$rsync_smb1_from/$rsync_smb1_from_folder"
+   if [ "$smb1_rsync_enable" = 1 ]; then
+      smb1_rsync_from=$smb1_mount_point
+      smb1_rsync_to=/data/to
+      smb1_rsync_opts="-an --stats"  # default options
+      if [ "$smb1_rsync_from_folder" != '' ]; then
+        smb1_rsync_from="$smb1_rsync_from/$smb1_rsync_from_folder"
       fi
 
-      if [ "$rsync_smb1_to_folder" != '' ]; then
-        rsync_smb1_to="$rsync_smb1_to/$rsync_smb1_to_folder"
-        mkdir -p "$rsync_smb1_to"
+      if [ "$smb1_rsync_to_folder" != '' ]; then
+        smb1_rsync_to="$smb1_rsync_to/$smb1_rsync_to_folder"
+        mkdir -p "$smb1_rsync_to"
       fi
-      if [ "$rsync_smb1_options" != '' ]; then
-         rsync_smb1_opts=$rsync_smb1_options
+      if [ "$smb1_rsync_options" != '' ]; then
+         smb1_rsync_opts=$smb1_rsync_options
       fi
 
       #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
-      if [ "$rsync_smb1_from_enable_expansion" = 1 ]; then
-         # this only works if there are no spaces in $rsync_smb1_from - of course in that case you replace any space by ?
-         rsync_cmd=(rsync $rsync_smb1_opts $rsync_smb1_from "$rsync_smb1_to")
+      if [ "$smb1_rsync_from_enable_expansion" = 1 ]; then
+         # this only works if there are no spaces in $smb1_rsync_from - of course in that case you replace any space by ?
+         rsync_cmd=(rsync $smb1_rsync_opts $smb1_rsync_from "$smb1_rsync_to")
       else
-         rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
+         rsync_cmd=(rsync $smb1_rsync_opts "$smb1_rsync_from" "$smb1_rsync_to")
       fi
       echo "\n\nLaunching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
@@ -82,28 +82,28 @@ if [ "$ext_dev_partition" != '' ]; then
 
 
    # processing the rsync options for 2st samba share (smb2)
-   if [ "$rsync_smb2_enable" = 1 ]; then
-      rsync_smb2_from=$smb2_mount_point
-      rsync_smb2_to=/data/to
-      rsync_smb2_opts="-an --stats"  # default options
-      if [ "$rsync_smb2_from_folder" != '' ]; then
-        rsync_smb2_from="$rsync_smb2_from/$rsync_smb2_from_folder"
+   if [ "$smb2_rsync_enable" = 1 ]; then
+      smb2_rsync_from=$smb2_mount_point
+      smb2_rsync_to=/data/to
+      smb2_rsync_opts="-an --stats"  # default options
+      if [ "$smb2_rsync_from_folder" != '' ]; then
+        smb2_rsync_from="$smb2_rsync_from/$smb2_rsync_from_folder"
       fi
 
-      if [ "$rsync_smb2_to_folder" != '' ]; then
-        rsync_smb2_to="$rsync_smb2_to/$rsync_smb2_to_folder"
-        mkdir -p "$rsync_smb2_to"
+      if [ "$smb2_rsync_to_folder" != '' ]; then
+        smb2_rsync_to="$smb2_rsync_to/$smb2_rsync_to_folder"
+        mkdir -p "$smb2_rsync_to"
       fi
-      if [ "$rsync_smb2_options" != '' ]; then
-         rsync_smb2_opts=$rsync_smb2_options
+      if [ "$smb2_rsync_options" != '' ]; then
+         smb2_rsync_opts=$smb2_rsync_options
       fi
 
       #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
-      if [ "$rsync_smb2_from_enable_expansion" = 1 ]; then
-         # this only works if there are no spaces in $rsync_smb2_from - of course in that case you replace any space by ?
-         rsync_cmd=(rsync $rsync_smb2_opts $rsync_smb2_from "$rsync_smb2_to")
+      if [ "$smb2_rsync_from_enable_expansion" = 1 ]; then
+         # this only works if there are no spaces in $smb2_rsync_from - of course in that case you replace any space by ?
+         rsync_cmd=(rsync $smb2_rsync_opts $smb2_rsync_from "$smb2_rsync_to")
       else
-         rsync_cmd=(rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to")
+         rsync_cmd=(rsync $smb2_rsync_opts "$smb2_rsync_from" "$smb2_rsync_to")
       fi
       echo -e "\n\nLaunching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
