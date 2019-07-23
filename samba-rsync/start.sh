@@ -76,7 +76,7 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
       fi
-      echo "launching: ${rsync_cmd[@]}"
+      echo "\n\nLaunching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
@@ -105,7 +105,7 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to")
       fi
-      echo "launching: ${rsync_cmd[@]}"
+      echo -e "\n\nLaunching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
