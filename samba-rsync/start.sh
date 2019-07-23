@@ -67,7 +67,7 @@ if [ "$ext_dev_partition" != '' ]; then
          rsync_smb1_opts=$rsync_smb1_options
       fi
       echo "launching: rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to"
-      rsync "$rsync_smb1_opts" "$rsync_smb1_from" "$rsync_smb1_to"
+      rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to"
    fi
 
    # processing the rsync options for 2nd samba share (smb2)
