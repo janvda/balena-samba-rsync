@@ -3,14 +3,10 @@
 # Mounting samba share 1 if appropriate device service variables are set.
 if [ "$smb1_server_and_share_name" != '' ]; then
 
-   # escape spaces: see https://stackoverflow.com/questions/12806987/unix-command-to-escape-spaces
-   smb1_server_and_share_name=$(printf %q "$smb1_server_and_share_name") 
-
    if [ "$smb1_mount_folder" = '' ]; then
-      export smb1_mount_folder=smb1
+      smb1_mount_folder=smb1 # default mount folder for samba share 1
    fi
-   
-   smb1_mount_point=$(printf %q "/data/from/$smb1_mount_folder")  
+   smb1_mount_point="/data/from/$smb1_mount_folder" 
 
    # prefix the mount options with -o if specified
    if [ "$smb1_mount_options" != '' ]; then
@@ -18,9 +14,9 @@ if [ "$smb1_server_and_share_name" != '' ]; then
    fi
 
    echo "Mounting samba share 1: $smb1_server_and_share_name at $smb1_mount_point"
-   mkdir -p $smb1_mount_point
+   mkdir -p "$smb1_mount_point"
    # echo "mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point"
-   mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point
+   mount -t cifs $smb1_full_mount_options "$smb1_server_and_share_name" "$smb1_mount_point"
 fi
 
 # Mounting samba share 2 if appropriate device service variables are set.
