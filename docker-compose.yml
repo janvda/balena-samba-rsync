@@ -10,5 +10,6 @@ services:
     ports:
       - "139:139"
       - "445:445"
-
-  
+    environment:
+      - UDEV=1  # see https://www.balena.io/docs/reference/base-images/base-images/#working-with-dynamically-plugged-devices
+      
