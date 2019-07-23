@@ -50,6 +50,7 @@ if [ "$ext_dev_partition" != '' ]; then
    df -h
    echo -e "************************************************************\n"
 
+   # processing the rsync options for 1st samba share (smb1)
    if [ "$rsync_smb1_enable" = 1 ]; then
       rsync_smb1_from=$smb1_mount_point
       rsync_smb1_to=/data/to
@@ -67,6 +68,27 @@ if [ "$ext_dev_partition" != '' ]; then
       echo "launching: rsync $rsync_smb1_opts \"$rsync_smb1_from\" \"$rsync_smb1_to\""
       rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to"
    fi
+
+   # processing the rsync options for 2nd samba share (smb2)
+   if [ "$rsync_smb2_enable" = 1 ]; then
+      rsync_smb2_from=$smb2_mount_point
+      rsync_smb2_to=/data/to
+      rsync_smb2_opts="-an --stats"  # default options
+      if [ "$rsync_smb2_from_folder" != '' ]; then
+        rsync_smb2_from=$rsync_smb2_from/$rsync_smb2_from_folder
+      fi
+      if [ "$rsync_smb2_to_folder" != '' ]; then
+        rsync_smb2_to=$rsync_smb2_to/$rsync_smb2_to_folder
+        mkdir -p "$rsync_smb2_to"
+      fi
+      if [ "$rsync_smb2_options" != '' ]; then
+         rsync_smb2_opts=$rsync_smb2_options
+      fi
+      echo "launching: rsync $rsync_smb2_opts \"$rsync_smb2_from\" \"$rsync_smb2_to\""
+      rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to"
+   fi
+
+
 fi
 
 echo -e "\nSleeping for 1 hour..."
