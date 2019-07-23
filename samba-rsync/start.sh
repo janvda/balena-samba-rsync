@@ -57,17 +57,17 @@ if [ "$ext_dev_partition" != '' ]; then
       rsync_smb1_to=/data/to
       rsync_smb1_opts="-an --stats"  # default options
       if [ "$rsync_smb1_from_folder" != '' ]; then
-        rsync_smb1_from=$(printf %q "$rsync_smb1_from/$rsync_smb1_from_folder")
+        rsync_smb1_from="$rsync_smb1_from/$rsync_smb1_from_folder"
       fi
       if [ "$rsync_smb1_to_folder" != '' ]; then
-        rsync_smb1_to=$(printf %q "$rsync_smb1_to/$rsync_smb1_to_folder")
-        mkdir -p $rsync_smb1_to
+        rsync_smb1_to=$rsync_smb1_to/$rsync_smb1_to_folder"
+        mkdir -p "$rsync_smb1_to"
       fi
       if [ "$rsync_smb1_options" != '' ]; then
          rsync_smb1_opts=$rsync_smb1_options
       fi
       echo "launching: rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to"
-      rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to
+      rsync "$rsync_smb1_opts" "$rsync_smb1_from" "$rsync_smb1_to"
    fi
 
    # processing the rsync options for 2nd samba share (smb2)
