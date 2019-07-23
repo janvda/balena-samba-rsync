@@ -69,7 +69,12 @@ if [ "$ext_dev_partition" != '' ]; then
       fi
 
       #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
-      rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
+      if [ "$rsync_smb1_from_enable_expansion" = 1 ]; then
+         # this only works if there are no spaces in $rsync_smb1_from - of course in that case you replace any space by ?
+         rsync_cmd=(rsync $rsync_smb1_opts $rsync_smb1_from "$rsync_smb1_to")
+      else
+         rsync_cmd=(rsync $rsync_smb1_opts "$rsync_smb1_from" "$rsync_smb1_to")
+      fi
       echo "launching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
