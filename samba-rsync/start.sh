@@ -36,7 +36,7 @@ if [ "$smb2_server_and_share_name" != '' ]; then
    mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
 fi
 
-# starting samba daemon, this will create samba share //<IP address raspberry pi>/data
+echo "Starting samba daemon: this will create samba share //<IP address raspberry pi>/data"
 service smbd start
 
 # Mounting external drive if appropriate device service variables are set.
@@ -63,5 +63,6 @@ if [ "$ext_dev_partition" != '' ]; then
    fi
 fi
 
+echo "Sleeping for 1 hour"
 sleep 3600
 exit 0
