@@ -59,7 +59,8 @@ if [ "$ext_dev_partition" != '' ]; then
       if [ "$rsync_smb1_options" != '' ]; then
          rsync_smb1_opts=$rsync_smb1_options
       fi
-      echo "rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to"
+      #echo "rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to"
+      rsync $rsync_smb1_opts $rsync_smb1_from $rsync_smb1_to
    fi
 fi
 
