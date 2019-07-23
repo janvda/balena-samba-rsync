@@ -49,7 +49,7 @@ if [ "$ext_dev_partition" != '' ]; then
    if [ "$rsync_smb1_enable" = 1 ]; then
       rsync_smb1_from=$smb1_mount_point
       rsync_smb1_to=/data/to
-      rsync_smb1_opts="-anv"
+      rsync_smb1_opts="-an --stats"  # default options
       if [ "$rsync_smb1_from_folder" != '' ]; then
         rsync_smb1_from=$rsync_smb1_from/$rsync_smb1_from_folder
       fi
