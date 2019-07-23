@@ -50,8 +50,8 @@ if [ "$ext_dev_partition" != '' ]; then
       rsync_smb1_from=$smb1_mount_point
       rsync_smb1_to=/data/to
       rsync_smb1_opts="-anv"
-      if [ "$rsync_smb1_folder" != '' ]; then
-        rsync_smb1_from=$rsync_smb1_from/$rsync_smb1_folder
+      if [ "$rsync_smb1_from_folder" != '' ]; then
+        rsync_smb1_from=$rsync_smb1_from/$rsync_smb1_from_folder
       fi
       if [ "$rsync_smb1_to_folder" != '' ]; then
         rsync_smb1_to=$rsync_smb1_to/$rsync_smb1_to_folder
