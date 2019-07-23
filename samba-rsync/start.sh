@@ -21,20 +21,21 @@ fi
 
 # Mounting samba share 2 if appropriate device service variables are set.
 if [ "$smb2_server_and_share_name" != '' ]; then
+
    if [ "$smb2_mount_folder" = '' ]; then
-      export smb2_mount_folder=smb2
+      smb2_mount_folder=smb2 # default mount folder for samba share 2
    fi
-   export smb2_mount_point=/data/from/$smb2_mount_folder
+   smb2_mount_point="/data/from/$smb2_mount_folder" 
 
    # prefix the mount options with -o if specified
    if [ "$smb2_mount_options" != '' ]; then
-      export smb2_full_mount_options="-o $smb2_mount_options"
+      smb2_full_mount_options="-o $smb2_mount_options"
    fi
 
    echo "Mounting samba share 2: $smb2_server_and_share_name at $smb2_mount_point"
-   mkdir -p $smb2_mount_point
+   mkdir -p "$smb2_mount_point"
    # echo "mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point"
-   mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point
+   mount -t cifs $smb2_full_mount_options "$smb2_server_and_share_name" "$smb2_mount_point"
 fi
 
 echo "Starting samba daemon: this will create samba share //<IP address raspberry pi>/data"
@@ -79,24 +80,35 @@ if [ "$ext_dev_partition" != '' ]; then
       "${rsync_cmd[@]}"
    fi
 
-   # processing the rsync options for 2nd samba share (smb2)
+
+   # processing the rsync options for 2st samba share (smb2)
    if [ "$rsync_smb2_enable" = 1 ]; then
       rsync_smb2_from=$smb2_mount_point
       rsync_smb2_to=/data/to
       rsync_smb2_opts="-an --stats"  # default options
       if [ "$rsync_smb2_from_folder" != '' ]; then
-        rsync_smb2_from=$rsync_smb2_from/$rsync_smb2_from_folder
+        rsync_smb2_from="$rsync_smb2_from/$rsync_smb2_from_folder"
       fi
+
       if [ "$rsync_smb2_to_folder" != '' ]; then
-        rsync_smb2_to=$rsync_smb2_to/$rsync_smb2_to_folder
+        rsync_smb2_to="$rsync_smb2_to/$rsync_smb2_to_folder"
         mkdir -p "$rsync_smb2_to"
       fi
       if [ "$rsync_smb2_options" != '' ]; then
          rsync_smb2_opts=$rsync_smb2_options
       fi
-      echo "launching: rsync $rsync_smb2_opts \"$rsync_smb2_from\" \"$rsync_smb2_to\""
-      rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to"
+
+      #see https://superuser.com/questions/355437/bash-script-dealing-with-spaces-when-running-indirectly-commands
+      if [ "$rsync_smb2_from_enable_expansion" = 1 ]; then
+         # this only works if there are no spaces in $rsync_smb2_from - of course in that case you replace any space by ?
+         rsync_cmd=(rsync $rsync_smb2_opts $rsync_smb2_from "$rsync_smb2_to")
+      else
+         rsync_cmd=(rsync $rsync_smb2_opts "$rsync_smb2_from" "$rsync_smb2_to")
+      fi
+      echo "launching: ${rsync_cmd[@]}"
+      "${rsync_cmd[@]}"
    fi
+
 fi
 
 echo -e "\nSleeping for 1 hour..."
