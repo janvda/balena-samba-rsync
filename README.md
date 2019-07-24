@@ -63,11 +63,13 @@ Within your balenacloud dashboard you must set the following device service vari
 | **smb1_rsync_from_folder** | Specifies the folder of the mounted samba share location that must backed up with rsync (e.g. `photos 2018\month april`).  If this variable is not set then the complete samba share will be backed up. |
 | **smb1_rsync_to_folder** | Specifies the destination folder on the external harddisk partition where the files must be backed up to using rsync.  If this variable is not set then the files will be backed up to the root folder of the external harddisk partition. |
 | **smb1_rsync_options** | Specifies the rsync options (e.g. `-av --progress` will backup all files under the **smb1_rsync_from_folder** and progress is reported in your balenacloud dashboard Logs window).  If this variable is not specified then it will use `-an --stats` as default rsync options.  The default options will make that no files are effectively copied (dry-run) and that at the end of the dry-run the statistics are reported in your balenacloud dashboard Logs window. |
-| **smb1_rsync_from_enable_expansion** | If this variable is set to `1` then bash filename expansion and pattern matching is enabled for the **smb1_rsync_from_folder**.  So in that case you can set **smb1_rsync_from_folder** = `photos201[6-8]` which will make that the 3 folders `photos2016`, `photos2017`and `photos2018` of the samba share will be backed up.  Note that if you set this variable then variable **smb1_rsync_from_folder** can not contain any spaces ! |
+| **smb1_rsync_from_enable_expansion** | If this variable is set to `1` then bash filename expansion and pattern matching is enabled for the **smb1_rsync_from_folder**.  So in that case you can set **smb1_rsync_from_folder** = `photos201[6-8]` which will make that the 3 folders `photos2016`, `photos2017`and `photos2018` of the samba share will be backed up.  Note that if you set this variable then variable **smb1_rsync_from_folder** can not contain any spaces (Tip - if the folder names have also spaces then replace the spaces by `?`:e.g. instead of `photos 201[6-8]` use `photos?201[6-8]` ). |
 | **smb2_rsync_....** | In case a second samba share is specified, then it is also possible to specify a rsync command for this second samba share.  In that case the service variables start with `smb2_` instead of `smb1_`  |
 
 ### Advanced Usage: rsync command in service terminal window
 
 It is also possible to enter an rsync command in the terminal window of your balencloud dashboard for the samba-rsync service.
 This might be interesting if the data to backup is not shared by samba but instead ssh is running on the device holding this data.
-E.g. an example of such a command `rsync -ave ssh root@192.168.1.150:/nfs/photos/201[0-4] /data/hd/photos`.
+E.g. an example of such a command:
+
+```rsync -ave ssh root@192.168.1.150:/nfs/photos/201[0-4] /data/hd/photos```
