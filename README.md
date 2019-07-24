@@ -6,7 +6,7 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 
 ## Goals achieved
 
-1. make it easy to format a harddisk connected to a USB port of a raspberry pi (or other balena compatible device) in the ext4 format (ext4 = popular filesystem format for linux systems)
+1. make it easy to format a harddisk connected to a USB port of a raspberry pi (or other balena compatible device) in the ext4 format ([ext4](https://nl.wikipedia.org/wiki/Ext4) = popular filesystem format for linux systems)
 2. mount this harddisk (ext4 partition) so that the raspberry pi can write to it.
 3. create a windows share (samba) so that I can read the contents written to this harddisk from my laptop by simply mounting this windows share on my laptop.
 4. mount on the raspberry pi the external windows share holding my photo/video collection as read only.
@@ -42,9 +42,30 @@ Within your balenacloud dashboard you must set the following device service vari
 
 #### 3.1 specify external harddisk to mount
 
-| Namee                     | Description                                  |
+| Service Variable         | Description                                  |
 |------------------------- | ---------------------------------------------|
-| **ext_dev_partition**    |  This is the linux device name of the ext4 partition created in step 2 (E.g. `/dev/sda1` ).  Note that this is the partition where all the files will be written to by the rsync command (see further). |
+| **ext_dev_partition**    |  This is the linux device name of the ext4 partition created in step 2 (E.g. `/dev/sda1` ).  Note that this is the partition where all the files will be written to by the rsync command (see further).  This partition will be mounted to folder `\data\to`. |
+
+#### 3.2 specify the remote samba share to mount
+
+| Service Variable         | Description                                  |
+|------------------------- | ---------------------------------------------|
+| **smb1_mount_server**    | samba share location (e.g. `//192.168.1.150/photos`) containing the data that must be backed up. |
+| **smb1_mount_options**   | Mounting options for the samba share (e.g. `ro,guest` or `ro,user=john,password=XXXXXXX` where `ro` stands for `read only`) |
+| **smb1_mount_folder**    | Specifies the folder under `\data\from\` where the share should be mounted to.  If this option is not specified then the share will be mounted to `\data\from\smb1`|
+| **smb2_mount_....** | It is possible to specify a second remote samba share.  In that case the service variable starts with `smb2_` instead of `smb1_`|
+
+### 3.3 specify the rsync settings
+
+| Service Variable         | Description                                  |
+|------------------------- | ---------------------------------------------|
+| **smb1_rsync_enable** | In order to run the rsync command to backup files from the samba share (see 3.2) to the external harddisk (see 3.1) you must set this variable to `1`.  If this variable is not then rsync command is not executed ! |
+| **smb1_rsync_from_folder** | Specifies the folder of the mounted samba share location that must backed up with rsync (e.g. `photos 2018\month april`).  If this variable is not set then the complete samba share will be backed up. |
+| **smb1_rsync_to_folder** | Specifies the destination folder on the external harddisk partition where the files must be backed up to using rsync.  If this variable is not set then the files will be backed up to the root folder of the external harddisk partition. |
+| **smb1_rsync_options** | Specifies the rsync options (e.g. `-av --progress` will backup all files under the **smb1_rsync_from_folder** and progress is reported in your balenacloud dashboard Logs window).  If this variable is not specified then it will use `-an --stats` as default rsync options.  The default options will make that no files are effectively copied (dry-run) and that at the end of the dry-run the statistics are reported in your balenacloud dashboard Logs window. |
+| **smb1_rsync_from_enable_expansion** | If this variable is set to `1` then bash filename expansion and pattern matching is enabled for the **smb1_rsync_from_folder**.  So in that case you can set **smb1_rsync_from_folder** = `photos201[6-8]` which will make that the 3 folders `photos2016`, `photos2017`and `photos2018` of the samba share will be backed up.  Note that if you set this variable then variable **smb1_rsync_from_folder** can not contain any spaces ! |
+
+
 
 #### 3.2 specify 
 2. The following command can be used to synchronise a folder using ssh: `rsync -avHe ssh root@192.168.1.150:/nfs/fotos_en_films/201[0-4] /data/hd/fotos_en_films`
