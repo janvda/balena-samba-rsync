@@ -53,7 +53,7 @@ if [ "$ext_dev_partition" != '' ]; then
    echo -e "************************************************************\n"
 
    # processing the rsync options for 1st samba share (smb1)
-   if [ "$smb1_rsync_enable" = 1 ]; then
+   if [ "$smb1_rsync_enable" = 1 -a "$smb1_mount_server_share" != "" ]; then
       smb1_rsync_from=$smb1_mount_point
       smb1_rsync_to=/data/to
       smb1_rsync_opts="-an --stats"  # default options
@@ -76,13 +76,13 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $smb1_rsync_opts "$smb1_rsync_from" "$smb1_rsync_to")
       fi
-      echo "\n\nLaunching: ${rsync_cmd[@]}"
+      echo -e  "\n\nLaunching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
 
    # processing the rsync options for 2st samba share (smb2)
-   if [ "$smb2_rsync_enable" = 1 ]; then
+   if [ "$smb2_rsync_enable" = 1  -a "$smb2_mount_server_share" != "" ]; then
       smb2_rsync_from=$smb2_mount_point
       smb2_rsync_to=/data/to
       smb2_rsync_opts="-an --stats"  # default options
