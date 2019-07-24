@@ -48,7 +48,7 @@ if [ "$ext_dev_partition" != '' ]; then
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
 
-   echo -e "\n******* Filesystem Statistics ******************************"
+   echo -e "******* Filesystem Statistics ******************************"
    df -h
    echo -e "************************************************************\n"
 
@@ -76,7 +76,7 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $smb1_rsync_opts "$smb1_rsync_from" "$smb1_rsync_to")
       fi
-      echo -e  "\n\nSTEP 4: Launching: ${rsync_cmd[@]}"
+      echo -e  "STEP 4: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
@@ -105,7 +105,7 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $smb2_rsync_opts "$smb2_rsync_from" "$smb2_rsync_to")
       fi
-      echo -e "\n\nSTEP 4: Launching: ${rsync_cmd[@]}"
+      echo -e "STEP 4: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
