@@ -13,7 +13,7 @@ if [ "$smb1_mount_server_share" != '' ]; then
       smb1_full_mount_options="-o $smb1_mount_options"
    fi
 
-   echo "Mounting samba share 1: $smb1_mount_server_share at $smb1_mount_point"
+   echo "STEP 1: Mounting samba share 1: $smb1_mount_server_share at $smb1_mount_point"
    mkdir -p "$smb1_mount_point"
    # echo "mount -t cifs $smb1_full_mount_options $smb1_mount_server_share $smb1_mount_point"
    mount -t cifs $smb1_full_mount_options "$smb1_mount_server_share" "$smb1_mount_point"
@@ -32,19 +32,19 @@ if [ "$smb2_mount_server_share" != '' ]; then
       smb2_full_mount_options="-o $smb2_mount_options"
    fi
 
-   echo "Mounting samba share 2: $smb2_mount_server_share at $smb2_mount_point"
+   echo "STEP 1: Mounting samba share 2: $smb2_mount_server_share at $smb2_mount_point"
    mkdir -p "$smb2_mount_point"
    # echo "mount -t cifs $smb2_full_mount_options $smb2_mount_server_share $smb2_mount_point"
    mount -t cifs $smb2_full_mount_options "$smb2_mount_server_share" "$smb2_mount_point"
 fi
 
-echo "Starting samba daemon: this will create samba share //<IP address raspberry pi>/data"
+echo "STEP 2: Starting samba daemon: this will create samba share //<IP address raspberry pi>/data"
 service smbd start
 
 # Mounting external drive if appropriate device service variables are set.
 # and running rsync if enabled.
 if [ "$ext_dev_partition" != '' ]; then
-   echo "Mounting external device partition: $ext_dev_partition at /data/to"
+   echo "STEP 3: Mounting external device partition: $ext_dev_partition at /data/to"
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
 
@@ -76,7 +76,7 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $smb1_rsync_opts "$smb1_rsync_from" "$smb1_rsync_to")
       fi
-      echo -e  "\n\nLaunching: ${rsync_cmd[@]}"
+      echo -e  "\n\nSTEP 4: Launching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
@@ -105,12 +105,12 @@ if [ "$ext_dev_partition" != '' ]; then
       else
          rsync_cmd=(rsync $smb2_rsync_opts "$smb2_rsync_from" "$smb2_rsync_to")
       fi
-      echo -e "\n\nLaunching: ${rsync_cmd[@]}"
+      echo -e "\n\nSTEP 4: Launching: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
 
 fi
 
-echo -e "\nSleeping for 1 hour..."
+echo -e "\nSTEP 5: Sleeping for 1 hour..."
 sleep 3600
 exit 0
