@@ -1,3 +1,5 @@
+# Balena application "samba-rsync"
+
 ## Rationale behind this repository
 
 The idea is to use harddisks recuperated from old laptops and desktops as backup storage for my extensive photo and video collection (and other data).  Once the backup is taken, I plan to unplug those harddisks and get them safely stored at a different location.
@@ -8,7 +10,7 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 2. mount this harddisk (ext4 partition) so that the raspberry pi can write to it.
 3. create a windows share (samba) so that I can read the contents written to this harddisk from my laptop by simply mounting this windows share on my laptop.
 4. mount on the raspberry pi the external windows share holding my photo/video collection as read only.
-5. take a backup of specific folders of the windows share (see point 4) on the mounted harddisk (see step 2) using [rsync](https://en.wikipedia.org/wiki/Rsync).
+5. take a backup of specific folders from the windows share (see point 4) to the mounted harddisk (see step 2) using [rsync](https://en.wikipedia.org/wiki/Rsync).
 
 ## Hardware needed besides raspberry pi
 
@@ -18,32 +20,33 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 
 ## STEPS
 
-### 1. Balena Setup
+### 1. Deploy Balena application
 
 So as you might have guessed this is indeed a balena application.  So follow all standard instructions for setting up and deploying this balena application. (e.g. see [getting started raspberry pi example](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/))
 
-### Format the hard disk (disk partition) in ext4 format
+After this step: this balena application should be running on your raspberry pi.
 
-If your hard disk is not yet properly formatted in ext4 format then follow the below instructions.
+### 2. Format the harddisk (disk partition) in ext4 format
 
-### 1.1. Partition the hard disk
+If your hard disk is not yet properly formatted in ext4 format then:
 
-Create one partition on the hard disk using the `fdisk`command.
-For more information see:
+1. connect the harddisk to one of the USB ports.  
+2. Open in your balenacloud dashboard a terminal window for the `samba-rsync` container and execute the following steps:
+3. Create one partition on the hard disk using the `fdisk`command.  For more information see [here](https://www.2daygeek.com/linux-fdisk-command-to-manage-disk-partitions/)
+4. Format the partition in ext4 format using the command `mkfs.ext4` (e.g. `mkfs.ext4 /dev/sda1`)
+5. Optionally you can give the partition a meaningful label using the command : `e2label` (e.g. `e2label /dev/sda1 hd01_ext4_700G`)
 
-* https://www.2daygeek.com/linux-fdisk-command-to-manage-disk-partitions/
+### 3. Set Device Service Variables for the samba-rsync container
 
-### 1.2. Format the partition in ext4 format
+Within your balenacloud dashboard you must set the following Device service variables for the `samba-rsync` container.
 
-Format the partion in the ext4 format using the command `mkfs.ext4`
-E.g. `mkfs.ext4 /dev/sda1`
+In previous step you have created the harddisk partition.  
 
-### 1.3. Give the partition a meaningful label
+| Name                     | Description                                  |
+|------------------------- | ---------------------------------------------|
+| **ext_dev_partition**    |   xxx   |
 
- Give the ext4 partion a meaningful label using the command : `e2label`
-E.g. `e2label /dev/sda1 hd01_ext4_700G`
 
-# Steps (obsolete)
 
 1. Mount the partion using the command: `mount /dev/sda1 /data/to`
 2. The following command can be used to synchronise a folder using ssh: `rsync -avHe ssh root@192.168.1.150:/nfs/fotos_en_films/201[0-4] /data/hd/fotos_en_films`
