@@ -1,13 +1,28 @@
+## Rationale behind this repository
 
-# Hardware needed besides raspberry pi
+The idea is to use harddisks recuperated from old laptops and desktops as backup storage for my extensive photo and video collection (and other data).  Once the backup is taken, I plan to unplug those harddisks and get them safely stored at a different location.
 
-1. hard disk with sufficient space to write the files to.
-2. cable to connect hard disk to one of the USB ports of the raspberry pi
-3. Assure that you are hard disk sufficiently powered (for most 3.5 inch harddisk the power provided by the raspberry pi USB port is sufficient so that you don't need an external power source)
+## Goals achieved
 
-# Steps
+1. make it easy to format a harddisk connected to a USB port of a raspberry pi (or other balena compatible device) in the ext4 format (ext4 = popular filesystem format for linux systems)
+2. mount this harddisk (ext4 partition) so that the raspberry pi can write to it.
+3. create a windows share (samba) so that I can read the contents written to this harddisk from my laptop by simply mounting this windows share on my laptop.
+4. mount on the raspberry pi the external windows share holding my photo/video collection as read only.
+5. take a backup of specific folders of the windows share (see point 4) on the mounted harddisk (see step 2) using [rsync](https://en.wikipedia.org/wiki/Rsync).
 
-## 1. Format the hard disk (disk partition) in ext4 format
+## Hardware needed besides raspberry pi
+
+1. harddisk(s) with sufficient space for the backup
+2. cable to connect harddisk to one of the USB ports of the raspberry pi (I have used a SATA to USB cable for my 3.5 inch SATA disks)
+3. Assure that you are harddisk is sufficiently powered (for most 3.5 inch harddisk the power provided by the raspberry pi USB port is sufficient so you don't need an external power source)
+
+## STEPS
+
+### 1. Balena Setup
+
+So as you might have guessed this is indeed a balena application.  So follow all standard instructions for setting up and deploying this balena application. (e.g. see [getting started raspberry pi example](https://www.balena.io/docs/learn/getting-started/raspberrypi3/nodejs/))
+
+### Format the hard disk (disk partition) in ext4 format
 
 If your hard disk is not yet properly formatted in ext4 format then follow the below instructions.
 
