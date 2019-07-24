@@ -38,17 +38,15 @@ If your hard disk is not yet properly formatted in ext4 format then:
 
 ### 3. Set Device Service Variables for the samba-rsync container
 
-Within your balenacloud dashboard you must set the following Device service variables for the `samba-rsync` container.
+Within your balenacloud dashboard you must set the following device service variables for the `samba-rsync` container.
 
-In previous step you have created the harddisk partition.  
+#### 3.1 specify external harddisk to mount
 
-| Name                     | Description                                  |
+| Namee                     | Description                                  |
 |------------------------- | ---------------------------------------------|
-| **ext_dev_partition**    |   xxx   |
+| **ext_dev_partition**    |  This is the linux device name of the ext4 partition created in step 2 (E.g. `/dev/sda1` ).  Note that this is the partition where all the files will be written to by the rsync command (see further). |
 
-
-
-1. Mount the partion using the command: `mount /dev/sda1 /data/to`
+#### 3.2 specify 
 2. The following command can be used to synchronise a folder using ssh: `rsync -avHe ssh root@192.168.1.150:/nfs/fotos_en_films/201[0-4] /data/hd/fotos_en_films`
 3. The following command can be used to mount samba share: `mount -t cifs //192.168.1.150/jan /data/from -o user=jan`
 `mount -t cifs -o user=jan,password=xxx //192.168.1.150/jan /data/from/smb1
