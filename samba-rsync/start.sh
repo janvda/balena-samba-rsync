@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Mounting samba share 1 if appropriate device service variables are set.
-if [ "$smb1_server_and_share_name" != '' ]; then
+if [ "$smb1_mount_server_share" != '' ]; then
 
    if [ "$smb1_mount_folder" = '' ]; then
       smb1_mount_folder=smb1 # default mount folder for samba share 1
@@ -13,14 +13,14 @@ if [ "$smb1_server_and_share_name" != '' ]; then
       smb1_full_mount_options="-o $smb1_mount_options"
    fi
 
-   echo "Mounting samba share 1: $smb1_server_and_share_name at $smb1_mount_point"
+   echo "Mounting samba share 1: $smb1_mount_server_share at $smb1_mount_point"
    mkdir -p "$smb1_mount_point"
-   # echo "mount -t cifs $smb1_full_mount_options $smb1_server_and_share_name $smb1_mount_point"
-   mount -t cifs $smb1_full_mount_options "$smb1_server_and_share_name" "$smb1_mount_point"
+   # echo "mount -t cifs $smb1_full_mount_options $smb1_mount_server_share $smb1_mount_point"
+   mount -t cifs $smb1_full_mount_options "$smb1_mount_server_share" "$smb1_mount_point"
 fi
 
 # Mounting samba share 2 if appropriate device service variables are set.
-if [ "$smb2_server_and_share_name" != '' ]; then
+if [ "$smb2_mount_server_share" != '' ]; then
 
    if [ "$smb2_mount_folder" = '' ]; then
       smb2_mount_folder=smb2 # default mount folder for samba share 2
@@ -32,10 +32,10 @@ if [ "$smb2_server_and_share_name" != '' ]; then
       smb2_full_mount_options="-o $smb2_mount_options"
    fi
 
-   echo "Mounting samba share 2: $smb2_server_and_share_name at $smb2_mount_point"
+   echo "Mounting samba share 2: $smb2_mount_server_share at $smb2_mount_point"
    mkdir -p "$smb2_mount_point"
-   # echo "mount -t cifs $smb2_full_mount_options $smb2_server_and_share_name $smb2_mount_point"
-   mount -t cifs $smb2_full_mount_options "$smb2_server_and_share_name" "$smb2_mount_point"
+   # echo "mount -t cifs $smb2_full_mount_options $smb2_mount_server_share $smb2_mount_point"
+   mount -t cifs $smb2_full_mount_options "$smb2_mount_server_share" "$smb2_mount_point"
 fi
 
 echo "Starting samba daemon: this will create samba share //<IP address raspberry pi>/data"
