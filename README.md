@@ -69,6 +69,10 @@ Within your balenacloud dashboard you must set the following device service vari
 | **smb1_rsync_from_enable_expansion** | If this variable is set to `1` then bash filename expansion and pattern matching is enabled for the **smb1_rsync_from_folder**.  So in that case you can set **smb1_rsync_from_folder** = `photos201[6-8]` which will make that the 3 folders `photos2016`, `photos2017`and `photos2018` of the samba share will be backed up.  Note that if you set this variable then variable **smb1_rsync_from_folder** can not contain any spaces (Tip - if the folder names have also spaces then replace the spaces by `?`:e.g. instead of `photos 201[6-8]` use `photos?201[6-8]` ). |
 | **smb2_rsync_....** | In case a second samba share is specified, then it is also possible to specify a rsync command for this second samba share.  In that case the service variables start with `smb2_` instead of `smb1_`  |
 
+#### 3.4 Example of my device service variables
+
+![device service variables example](./screenshot_device_service_variables.png)
+
 ### Advanced Usage: rsync command when files to backup are not accessible via samba
 
 It is also possible to enter the `rsync` command in the terminal window of your balencloud dashboard for the `samba-rsync` service.
