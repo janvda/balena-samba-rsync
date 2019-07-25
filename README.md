@@ -28,8 +28,8 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 * `/data` : is a [named volume](https://www.balena.io/docs/learn/develop/multicontainer/#named-volumes).  This folder is also accessible as windows share at `smb://<IP address of the raspberry pi>/data` (user = guest) !!
   * `to/` : location where the external harddisk partition is mounted to.
   * `from/`: folder where we will mount the external samba shares having the files to backup.
-    * `smb1/` (or `$smb1_from_folder/`) : location where the first external samba share is mounted to.
-    * `smb2/` (or `$smb2_from_folder/`) : location where the second external samba share is mounted to.
+    * `smb1/` (or `$smb1_mount_folder/`) : location where the first external samba share is mounted to.
+    * `smb2/` (or `$smb2_mount_folder/`) : location where the second external samba share is mounted to.
 
 ## STEPS
 
