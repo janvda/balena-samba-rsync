@@ -9,7 +9,7 @@ which allows to take backups of windows shares ([samba](https://en.wikipedia.org
 
 The idea is to use harddisks recuperated from old laptops and desktops as backup storage for my extensive photo and video collection (and other data).  Once the backup is taken, I plan to unplug those harddisks and get them safely stored at a different location (not in the same house).
 
-## Goals achieved
+## Features
 
 1. make it easy to format a harddisk connected to a USB port of a raspberry pi (or other balena compatible device) in the ext4 format ([ext4](https://en.wikipedia.org/wiki/Ext4) = popular filesystem format for linux systems)
 2. mount this harddisk (ext4 partition) so that the raspberry pi can write to it.
@@ -17,11 +17,19 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 4. mount on the raspberry pi the external windows share holding my photo/video collection as read only.
 5. take a backup of specific folders from the windows share (see point 4) to the mounted harddisk (see step 2) using [rsync](https://en.wikipedia.org/wiki/Rsync).
 
-## Hardware needed besides raspberry pi
+## Hardware needed besides a raspberry pi
 
 1. harddisk(s) with sufficient space for the backup
 2. cable to connect harddisk to one of the USB ports of the raspberry pi (I have used a SATA to USB cable for my 3.5 inch SATA disks)
 3. Assure that you are harddisk is sufficiently powered (for most 3.5 inch harddisk the power provided by the raspberry pi USB port is sufficient so you don't need an external power source)
+
+## Folder Structure of the samba-rsync service
+
+* `/data` : is a [named volume](https://www.balena.io/docs/learn/develop/multicontainer/#named-volumes).  This folder is also accessible as windows share at `smb://<IP address of the raspberry pi>/data` (user = guest) !!
+  * `to/` : location where the external harddisk partition is mounted to.
+  * `from/`: folder where we will mount the external samba shares having the files to backup.
+    * `smb1/` (or `$smb1_from_folder/`) : location where the first external samba share is mounted to.
+    * `smb2/` (or `$smb2_from_folder/`) : location where the second external samba share is mounted to.
 
 ## STEPS
 
@@ -31,7 +39,7 @@ So as you might have guessed this is indeed a balena application.  So follow all
 
 After this step: this balena application should be running on your raspberry pi.
 
-### 2. Format the harddisk (disk partition) in ext4 format
+### 2. Format the harddisk (partition) in ext4 format
 
 If your hard disk is not yet properly formatted in ext4 format then:
 
