@@ -111,6 +111,9 @@ if [ "$ext_dev_partition" != '' ]; then
 
 fi
 
-echo -e "\nSTEP 5: Sleeping for 1 hour..."
-sleep 3600
-exit 0
+echo -e "\nSTEP 5: Sleeping forever"
+while true; do
+   # every hour a "z" is put into the log files.
+   echo -n "z"
+   sleep 3600
+done
