@@ -3,6 +3,8 @@
 This is a [Balena](https://www.balena.io/) application consisting of a single docker container "`samba-rsync`"
 which allows to take backups of windows shares ([samba](https://en.wikipedia.org/wiki/Samba_(software))) to an external harddisk using [rsync](https://en.wikipedia.org/wiki/Rsync).
 
+![pi connected to harddisk](./pi_connected_to_harddisk.jpg)
+
 ![balena dashboard terminal logs](./screenshot_logs_window.png)
 
 ## Rationale for this Application
