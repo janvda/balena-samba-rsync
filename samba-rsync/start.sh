@@ -113,7 +113,7 @@ fi
 
 echo -e "\nSTEP 5: Sleeping forever"
 while true; do
-   # every hour a "z" is put into the log files.
-   echo -n "z"
+   # every hour a "zzz" is put into the log files.
+   echo "zzz"
    sleep 3600
 done
