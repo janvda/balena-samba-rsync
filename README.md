@@ -47,7 +47,12 @@ If your hard disk is not yet properly formatted in ext4 format then:
 
 1. connect the harddisk to one of the USB ports.  
 2. Open in your balenacloud dashboard a terminal window for the `samba-rsync` container and execute the following steps:
-3. Create one partition on the hard disk using the `fdisk`command.  For more information see [here](https://www.2daygeek.com/linux-fdisk-command-to-manage-disk-partitions/)
+3. Create one partition on the hard disk using the `fdisk`command.  For more information see [here](https://www.2daygeek.com/linux-fdisk-command-to-manage-disk-partitions/).  The following might work for you.
+    1. Do `fdisk -l` to identify the drive to format. (most likely this is `/dev/sda`)
+    2. Do `fdisk /dev/sda` to format drive `/dev/sda``
+        1. delete all existing partitions with command `p`
+        2. add a new partition with command `n` (accept all defaults)
+        3. save changes with command `w`
 4. Format the partition in ext4 format using the command `mkfs.ext4` (e.g. `mkfs.ext4 /dev/sda1`)
 5. Optionally you can give the partition a meaningful label using the command : `e2label` (e.g. `e2label /dev/sda1 hd01_ext4_700G`)
 
