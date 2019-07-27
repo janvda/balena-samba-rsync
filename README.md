@@ -85,10 +85,36 @@ Within your balenacloud dashboard you must set the following device service vari
 
 ![device service variables example](./screenshot_device_service_variables.png)
 
-### Advanced Usage: rsync command when files to backup are not accessible via samba
+### Advanced Usage
+
+#### rsync using ssh in case files to backup are not accessible via samba
 
 It is also possible to enter the `rsync` command in the terminal window of your balencloud dashboard for the `samba-rsync` service.
 This might be interesting if the data to backup is not shared by samba but instead ssh is running on the device holding this data.
 E.g. an example of such a command (assure that the folder `/data/to/photos` exists.):
 
 ```rsync -ave ssh root@192.168.1.150:/user/john/photos/201[0-4] /data/to/photos```
+
+#### List existing files with different size
+
+Option = `-rin --existing --size-only`.
+
+E.g.:
+
+`rsync -rin --ignore-existing --size-only data/from/pi3one_fotos_en_films/fotos_en_films/20?? /data/to/fotos_en_films`
+
+#### List files that are not in destination folder
+
+Option = `-rin --ignore-existing`.
+
+E.g.:
+
+`rsync -rin --ignore-existing data/from/pi3one_fotos_en_films/fotos_en_films/20?? /data/to/fotos_en_films`
+
+### List files on destination folder that are not in source folder
+
+For that you need to switch destination and source in the rsync command and use option `-rin`
+
+E.g.
+
+`rsync -rin /data/to/fotos_en_films/20?? /data/from/fotos_en_films`
