@@ -1,7 +1,7 @@
 # Balena "samba-rsync" Application
 
 This is a [Balena](https://www.balena.io/) application consisting of a single docker container "`samba-rsync`"
-which allows to take backups of windows shares ([samba](https://en.wikipedia.org/wiki/Samba_(software))) to an external harddisk using [rsync](https://en.wikipedia.org/wiki/Rsync).
+which allows to take backups of windows shares ([samba](https://en.wikipedia.org/wiki/Samba_(software))) to an external (encrypted) harddisk using [rsync](https://en.wikipedia.org/wiki/Rsync).
 
 ![pi connected to harddisk](./pi_connected_to_harddisk.jpg)
 
@@ -18,6 +18,7 @@ The idea is to use harddisks recuperated from old laptops and desktops as backup
 3. create a windows share (samba) so that I can read the contents written to this harddisk from my laptop by simply mounting this windows share on my laptop.
 4. mount on the raspberry pi the external windows share holding my photo/video collection as read only.
 5. take a backup of specific folders from the windows share (see point 4) to the mounted harddisk (see step 2) using [rsync](https://en.wikipedia.org/wiki/Rsync).
+6. harddisk encryption ([LUKS](https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup)) is also supported.
 
 ## Hardware needed besides a raspberry pi
 

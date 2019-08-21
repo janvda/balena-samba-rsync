@@ -52,7 +52,7 @@ if [ "$ext_dev_partition" != '' ]; then
          echo "$partition_to_mount already exists, closing it first ..."
          cryptsetup luksClose encrypted_partition
       fi
-      echo "opening encrypted partition and mapping it to $partition_to_mount ..."
+      echo "Opening encrypted partition and mapping it to $partition_to_mount ..."
       echo $ext_dev_passphrase | sudo -S cryptsetup luksOpen $ext_dev_partition encrypted_partition
   
    else
