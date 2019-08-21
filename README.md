@@ -59,11 +59,11 @@ If your hard disk is not yet properly formatted in ext4 format then:
       1. You are also requested to enter the **LUKS passphrase** (your harddisk password))
    1. Create a mapping by command `cryptsetup luksOpen /dev/sda1 encrypted_partition`
       1. you can check successful mapping by command `ls -l /dev/mapper/encrypted_partition` or command `cryptsetup -v status encrypted_partition`
-5. Format the partition in ext4 format using the command `mkfs.ext4` 
+5. Format the partition in ext4 format using the command `mkfs.ext4`
    1. e.g. `mkfs.ext4 /dev/sda1`
    1. or in case the partition is encrypted: `mkfs.ext4 /dev/mapper/encrypted_partition`)
 6. Optionally you can give the partition a meaningful label using the command : `e2label`
-   1. e.g. `e2label /dev/sda1 hd01_ext4_700G` 
+   1. e.g. `e2label /dev/sda1 hd01_ext4_700G`
    1. or in case the disk is encrypted: `e2label /dev/mapper/encrypted_partition hd01_ext4_700G`)
 
 ### 3. Set Device Service Variables for the samba-rsync container
