@@ -62,7 +62,7 @@ if [ "$ext_dev_partition" != '' ]; then
    mount $partition_to_mount /data/to
 
    label=`e2label $partition_to_mount`
-   echo "        Label of $partition_to_mount=$label"
+   echo "Label of $partition_to_mount=$label"
 
    echo -e "******* Filesystem Statistics ******************************"
    df -h
