@@ -9,7 +9,7 @@ which allows to take backups of windows shares ([samba](https://en.wikipedia.org
 
 ## Rationale for this Application
 
-The idea is to use harddisks recuperated from old laptops and desktops as backup storage for my extensive photo and video collection (and other data).  Once the backup is taken, I plan to unplug those harddisks and get them safely stored at a different location (not in the same house).
+The idea is to use harddisks recuperated from old laptops and desktops as (encrypted) backup storage for my extensive photo and video collection (and other data).  Once the backup is taken, I plan to unplug those harddisks and get them safely stored at a different location (not in the same house).
 
 ## Features
 
