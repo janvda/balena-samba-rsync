@@ -57,15 +57,15 @@ If your hard disk is not yet properly formatted in ext4 format then:
 4. In case you want to encrypt the partition (see [link](https://www.cyberciti.biz/hardware/howto-linux-hard-disk-encryption-with-luks-cryptsetup-command/))
    1. Format the partition for LUKS by command `cryptsetup -y -v luksFormat /dev/sda1`
       1. Note that you should enter `YES` in capitals and not in lower case !.
-      1. You are also requested to enter the **LUKS passphrase** (your harddisk password))
+      1. You are also requested to enter the **LUKS passphrase** (your harddisk password)).  The same password you will need to set later in the device service variable `ext_dev_passphrase` see [section 3.1](#31-specify-external-harddisk-to-mount)
    1. Create a mapping by command `cryptsetup luksOpen /dev/sda1 encrypted_partition`
       1. you can check successful mapping by command `ls -l /dev/mapper/encrypted_partition` or command `cryptsetup -v status encrypted_partition`
 5. Format the partition in ext4 format using the command `mkfs.ext4`
    1. e.g. `mkfs.ext4 /dev/sda1`
-   1. or in case the partition is encrypted: `mkfs.ext4 /dev/mapper/encrypted_partition`)
+   1. or in case the partition is encrypted: `mkfs.ext4 /dev/mapper/encrypted_partition`
 6. Optionally you can give the partition a meaningful label using the command : `e2label`
    1. e.g. `e2label /dev/sda1 hd01_ext4_700G`
-   1. or in case the disk is encrypted: `e2label /dev/mapper/encrypted_partition hd01_ext4_700G`)
+   1. or in case the disk is encrypted: `e2label /dev/mapper/encrypted_partition hd01_ext4_700G`
 
 ### 3. Set Device Service Variables for the samba-rsync container
 
