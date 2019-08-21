@@ -48,7 +48,7 @@ if [ "$ext_dev_partition" != '' ]; then
    if [ "$ext_dev_passphrase" != '' ]; then
       echo "Env variable \$ext_dev_passphrase is specified so partition must be encrypted."
       partition_to_mount=/dev/mapper/encrypted_partition
-      if [ -f "$partition_to_mount" ]; then
+      if [ -L "$partition_to_mount" ]; then
          echo "$partition_to_mount already exists, closing it first ..."
          cryptsetup luksClose encrypted_partition
       fi
