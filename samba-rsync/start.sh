@@ -53,7 +53,7 @@ if [ "$ext_dev_partition" != '' ]; then
       partition_to_mount=$ext_dev_partition
    fi
    mkdir -p /data/to
-   mount $partition_to_mount/data/to
+   mount $partition_to_mount /data/to
 
    label=`e2label $partition_to_mount`
    echo "        Label of $partition_to_mount=$label"
