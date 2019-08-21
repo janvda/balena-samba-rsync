@@ -46,9 +46,15 @@ service smbd start
 if [ "$ext_dev_partition" != '' ]; then
    echo "STEP 3: Mounting external device partition: $ext_dev_partition at /data/to"
    if [ "$ext_dev_passphrase" != '' ]; then
-      echo "...env variable \$ext_dev_passphrase specified so opening encrypted partition"
-      echo $ext_dev_passphrase | sudo -S cryptsetup luksOpen $ext_dev_partition encrypted_partition
+      echo "Env variable \$ext_dev_passphrase is specified so partition must be encrypted."
       partition_to_mount=/dev/mapper/encrypted_partition
+      if [ -f "$partition_to_mount" ]; then
+         echo "$partition_to_mount already exists, closing it first ..."
+         cryptsetup luksClose encrypted_partition
+      fi
+      echo "opening encrypted partition and mapping it to $partition_to_mount ..."
+      echo $ext_dev_passphrase | sudo -S cryptsetup luksOpen $ext_dev_partition encrypted_partition
+  
    else
       partition_to_mount=$ext_dev_partition
    fi
