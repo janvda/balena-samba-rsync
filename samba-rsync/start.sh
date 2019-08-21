@@ -45,11 +45,18 @@ service smbd start
 # and running rsync if enabled.
 if [ "$ext_dev_partition" != '' ]; then
    echo "STEP 3: Mounting external device partition: $ext_dev_partition at /data/to"
+   if [ "$ext_dev_passphrase" != '' ]; then
+      echo "...env variable \$ext_dev_passphrase specified so opening encrypted partition"
+      echo $ext_dev_passphrase | sudo -S cryptsetup luksOpen $ext_dev_partition encrypted_partition
+      partition_to_mount=/dev/mapper/encrypted_partition
+   else
+      partition_to_mount=$ext_dev_partition
+   fi
    mkdir -p /data/to
-   mount $ext_dev_partition /data/to
+   mount $partition_to_mount/data/to
 
-   label=`e2label $ext_dev_partition`
-   echo "        Label of $ext_dev_partition=$label"
+   label=`e2label $partition_to_mount`
+   echo "        Label of $partition_to_mount=$label"
 
    echo -e "******* Filesystem Statistics ******************************"
    df -h
