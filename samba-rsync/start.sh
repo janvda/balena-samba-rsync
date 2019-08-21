@@ -110,7 +110,7 @@ if [ "$ext_dev_partition" != '' ]; then
    fi
 else # "$ext_dev_partition" == ''
    echo -e "\nERROR: environment variable \$ext_dev_partition must be set !"
-   echo -e "         FYI the output of \"fdisk -l\":"
+   echo -e "       FYI the output of \"fdisk -l\":"
    echo "======================================================================="
    fdisk -l
    echo "======================================================================="
