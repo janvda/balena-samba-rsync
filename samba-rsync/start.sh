@@ -46,7 +46,7 @@ service smbd start
 if [ "$ext_dev_partition" != '' ]; then
    echo "STEP 3: Mounting external device partition: $ext_dev_partition at /data/to"
    if [ "$ext_dev_passphrase" != '' ]; then
-      echo "Env variable \$ext_dev_passphrase is specified so partition must be encrypted."
+      echo "Env variable \$ext_dev_passphrase is specified so partition is encrypted."
       partition_to_mount=/dev/mapper/encrypted_partition
       if [ -L "$partition_to_mount" ]; then
          echo "$partition_to_mount already exists, closing it first ..."
