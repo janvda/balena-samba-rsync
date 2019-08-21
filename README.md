@@ -51,7 +51,7 @@ If your hard disk is not yet properly formatted in ext4 format then:
     1. Do `fdisk -l` to identify the drive to format. (most likely this is `/dev/sda`)
     2. Do `fdisk /dev/sda` to format drive `/dev/sda`.
         1. delete all existing partitions with command `d`
-        2. add a new partition with command `n` (accept all defaults)
+        2. add a new partition with command `n` (accept all defaults and remove `ntfs signature` if asked)
         3. save changes with command `w`
 4. Format the partition in ext4 format using the command `mkfs.ext4` (e.g. `mkfs.ext4 /dev/sda1`)
 5. Optionally you can give the partition a meaningful label using the command : `e2label` (e.g. `e2label /dev/sda1 hd01_ext4_700G`)
