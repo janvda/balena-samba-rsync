@@ -108,7 +108,12 @@ if [ "$ext_dev_partition" != '' ]; then
       echo -e "STEP 4: ${rsync_cmd[@]}"
       "${rsync_cmd[@]}"
    fi
-
+else # "$ext_dev_partition" == ''
+   echo -e "\nERROR: environment variable \$ext_dev_partition must be set !"
+   echo -e "         FYI the output of \"fdisk -l\":"
+   echo "======================================================================="
+   fdisk -L
+   echo "======================================================================="
 fi
 
 echo -e "\nSTEP 5: Sleeping forever"
