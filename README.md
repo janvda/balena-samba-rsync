@@ -75,6 +75,7 @@ Within your balenacloud dashboard you must set the following device service vari
 | Service Variable         | Description                                  |
 |------------------------- | ---------------------------------------------|
 | **ext_dev_partition**    |  This is the linux device name of the ext4 partition created in step 2 (E.g. `/dev/sda1` ).  Note that this is the partition where all the files will be written to by the rsync command (see further).  This partition will be mounted to folder `\data\to`. |
+| **ext_dev_passphrase**  | In case the partition (see previous service variable) is encrypted then this variable must hold the passphrase (password).  When this variable is not set, it is assumed that the partition is not encrypted. |
 
 #### 3.2 specify the remote samba share to mount
 
