@@ -44,7 +44,8 @@ service smbd start
 # Mounting external drive if appropriate device service variables are set.
 # and running rsync if enabled.
 if [ "$ext_dev_partition" != '' ]; then
-   echo "STEP 3: Mounting external device partition: $ext_dev_partition at /data/to"
+   label=`e2label $ext_dev_partition`
+   echo "STEP 3: Mounting external device partition: $ext_dev_partition (label=$label) at /data/to"
    mkdir -p /data/to
    mount $ext_dev_partition /data/to
 
